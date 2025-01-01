@@ -1,0 +1,35 @@
+<!-- addToCart.ejs -->
+<script>
+    function addToCart(name, price) {
+        // Check if the cart already exists in local storage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Create a new item object
+        const item = { name: name, price: price };
+
+        // Add the new item to the cart
+        cart.push(item);
+
+        // Save the updated cart back to local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Notify the user
+        alert(`${name} has been added to your cart!`);
+    }
+
+    function displayCart() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cartContainer = document.getElementById('cart-container');
+        
+        // Clear the current cart display
+        cartContainer.innerHTML = '';
+
+        // Render each item in the cart
+        cart.forEach(item => {
+            let itemElement = document.createElement('div');
+            itemElement.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+            
+            cartContainer.appendChild(itemElement);
+        });
+    }
+</script>

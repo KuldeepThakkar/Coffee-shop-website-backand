@@ -1,0 +1,53 @@
+login page
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheet/style.css"/>
+    <title>Login Page</title>
+    <style>
+      
+        body{
+             
+              background-image: url(../images/pexels-tyler-nix-1259808-2396220.jpg);
+           
+           background-size:contain ;
+            font-size: xx-large;
+            color: rgb(0, 0, 0);
+        }
+
+      .popup {
+  position: fixed;
+  background-image: url(../images/pexels-tyler-nix-1259808-2396220.jpg);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(  135deg, #ee972c,#792701);
+  background-size: 100%;
+  padding: 20px;
+  border: 1px solid #901212;
+  display: none;
+}
+    </style>
+  </head>
+  <body>
+   
+    
+    <div class="popup" id="login-popup">
+      <h2>Login</h2>
+      <form method="post">
+        <label >Username:</label>
+        <input type="text"  name="txt1"><br><br>
+        <label >Password:</label>
+        <input type="password"  name="txt2"><br><br>
+        <input type="submit" value="Login" >
+      </form>
+    </div>
+  
+    <script>
+      setTimeout(function() {
+        document.getElementById("login-popup").style.display = "block";
+      }, 5000);
+    </script>
+  </body>
+</html>

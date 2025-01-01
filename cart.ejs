@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+
+    <div id="cart-container"></div> <!-- Container to display cart items -->
+    <h2 id="total"></h2>   <!--   Element to display totalPrice -->
+
+    <script>
+        let totalPrice =0;
+        function displayCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartContainer = document.getElementById('cart-container');
+             totalPrice =0;
+            
+            // Clear the current cart display
+            cartContainer.innerHTML = '';
+
+            // Check if the cart is empty
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+                document.getElementById('total').innerHTML='';
+                return;
+            }
+            
+            
+
+            // Render each item in the cart
+            cart.forEach(item => {
+                let itemElement = document.createElement('div');
+                itemElement.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                cartContainer.appendChild(itemElement);
+                let space = document.createElement('br')
+                cartContainer.appendChild(space);
+                let button = document.createElement('button');
+                button.textContent = 'Remove Item';
+                button.addEventListener('click', function(){
+                    localStorage.removeItem(item.id)
+                    console.log(item.id);
+                    console.log("it have been remove")
+                    
+                    displayCart();
+                } );     
+                cartContainer.appendChild(button);
+                totalPrice += item.price;
+                
+            });
+           
+            document.getElementById('total').innerHTML = `Total: $${totalPrice.toFixed(2)}`;
+            
+        }
+        
+        // Call the displayCart function when the page loads
+        window.onload = displayCart;
+
+        
+    </script>
+
+    <a href="/main">Continue Shopping</a>
+    <!-- problem is here --> 
+     <button onclick="redireact()">Checkout</button>
+  
+   <button onclick="clearcart()">clear cart</button>
+</body>
+<script>
+    function clearcart() {
+        localStorage.removeItem('cart');
+        totalPrice=0;
+        displayCart();
+    }
+
+    function redireact() {
+    if (typeof totalPrice !== 'undefined' && totalPrice > 0) {
+        // Construct the URL with the totalPrice as a query parameter
+        window.location.href = '/cheack-out?total=' + encodeURIComponent(totalPrice);
+    } else {
+        alert('cart is empty');
+    }
+
+  
+
+}
+</script>
+</html>
